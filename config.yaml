@@ -1,0 +1,45 @@
+# ---------------------------------------------------------------------------
+# Settings for the mini voice agent. Every module reads them through
+# voiceagent/config.py. Any key can be overridden with an environment variable
+# named VOICE_<KEY IN UPPER CASE>, for example VOICE_TTS_VOICE=nova.
+# ---------------------------------------------------------------------------
+
+# --- Speech-to-text (Whisper) ------------------------------------------------
+stt_model: whisper-1        # or gpt-4o-transcribe / gpt-4o-mini-transcribe
+stt_language: en            # ISO-639-1 hint; empty = let Whisper detect the language
+
+# --- Chat (GPT) --------------------------------------------------------------
+chat_model: gpt-4.1-mini
+temperature: 0.6            # set to null for reasoning models (o-series, gpt-5 family)
+max_reply_tokens: 300       # spoken replies should be short
+history_turns: 6            # earlier user/assistant pairs sent as context
+
+assistant_name: Nova
+system_prompt: |
+  You are {name}, a friendly voice assistant. Your replies are converted to
+  speech, so:
+  - Answer in 1 to 3 short sentences unless the user asks for more detail.
+  - Use plain spoken language: no markdown, bullet points, code blocks, emojis or URLs.
+  - Spell out symbols ("percent", "degrees") and keep numbers easy to say.
+  - If the transcript looks garbled or incomplete, ask the user to repeat.
+  - If you don't know something (for example live news or weather), say so briefly.
+  The current local date and time is {now}.
+
+# --- Text-to-speech ----------------------------------------------------------
+tts_model: gpt-4o-mini-tts  # or tts-1 / tts-1-hd
+tts_voice: alloy            # alloy, ash, ballad, coral, echo, fable, nova, onyx, sage, shimmer
+tts_format: mp3
+tts_speed: 1.0              # 0.25 - 4.0
+# Delivery style; only gpt-4o-mini-tts uses it (ignored by tts-1 models).
+tts_instructions: Speak in a warm, clear and upbeat tone at a natural pace.
+
+# --- Logging -----------------------------------------------------------------
+log_dir: logs               # conversations/<session>.jsonl + audio/<session>/
+save_audio: true            # keep the recorded question and spoken reply of every turn
+
+# --- Limits ------------------------------------------------------------------
+max_audio_mb: 25            # Whisper API limit per file
+min_audio_bytes: 2000       # shorter recordings are treated as empty
+request_timeout_s: 60
+
+log_level: INFO

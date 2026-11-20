@@ -1,0 +1,14 @@
+[project]
+name = "voice-agent"
+version = "1.0.0"
+description = "Mini voice assistant: Whisper speech-to-text, GPT replies and text-to-speech playback"
+requires-python = ">=3.11"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+filterwarnings = ["ignore::DeprecationWarning"]
+
+[tool.ruff]
+line-length = 120
+target-version = "py311"

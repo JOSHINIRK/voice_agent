@@ -1,0 +1,10 @@
+openai>=1.40,<4          # Whisper (speech-to-text), GPT chat and text-to-speech
+streamlit>=1.40          # Web UI; st.audio_input records from the browser microphone
+pyyaml>=6.0              # config.yaml
+python-dotenv>=1.0       # Loads OPENAI_API_KEY from .env
+pytest>=8.0              # Offline test suite
+
+# Pinned for Windows Smart App Control: it blocks the DLLs of some brand-new
+# compiled builds on this laptop; these releases are known to load.
+pydantic==2.12.*
+pandas==2.3.*

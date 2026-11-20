@@ -1,0 +1,9 @@
+[server]
+maxUploadSize = 25        # MB; keep in line with max_audio_mb in config.yaml
+headless = false
+
+[browser]
+gatherUsageStats = false
+
+[theme]
+base = "light"
